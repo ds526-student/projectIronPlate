@@ -36,4 +36,21 @@ export const commonStyles = StyleSheet.create({
     fontSize: 16,
     fontWeight: '600',
   },
+  navbar: {
+    flexDirection: 'row',
+    height: 100,
+    backgroundColor: colors.accent,
+    justifyContent: 'space-between',
+    borderTopColor: colors.background,
+  },
+});
+
+export const navbarStyles = StyleSheet.create({
+  navbar: {
+    flexDirection: 'row',
+    height: 100,
+    backgroundColor: colors.accent,
+    justifyContent: 'space-between',
+    borderTopColor: colors.background,
+  },
 });
