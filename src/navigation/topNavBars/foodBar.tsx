@@ -7,7 +7,7 @@ export default function TopNavBar() {
 
   return (
     <View style={[commonStyles.navbar, styles.specific]}>
-        <Text style={styles.navbarText}>Food</Text>
+        <Text style={styles.navbarText}>Food!!!</Text>
     </View>
     );
 }

@@ -1,4 +1,4 @@
-import { Stack, usePathname } from 'expo-router';
+import { Tabs, usePathname } from 'expo-router';
 import { View, StyleSheet } from 'react-native';
 import BottomNavBar from '../src/navigation/bottomNavBar';
 import HomeBar from '../src/navigation/topNavBars/homeBar';
@@ -28,7 +28,7 @@ export default function RootLayout() {
   return (
     <View style={styles.container}>
       {renderTopNavBar()}
-      <Stack screenOptions={{ headerShown: false }} />
+      <Tabs screenOptions={{ headerShown: false, tabBarStyle: { display: 'none' } }} />
       <BottomNavBar />
     </View>
   );
