@@ -1,0 +1,48 @@
+project Iron Plate plan
+
+
+home
+weight
+water
+sleep
+steps
+- add graphs to show x days for the above data
+start workout button - takes you to menu to select which workout you wanna do
+
+food
+tracker - calories | macros | micros
+database - base(usda + nzda)
+barcode scanner to add food
+recipe maker - add a group of foods to one meal
+custom food adder
+water
+
+workouts
+graph of progression
+body building focus - separate workout creation
+powerlifting focus - block creation
+cardio tracker
+
+profile
+name
+notifications
+email
+
+help
+contact me | submit bug report
+
+settings
+
+potentially
+choose which widgets are displayed on the main screen
+
+
+
+
+
+
+
+
+recommendations from others
+macros locked behind pay wall
+not enough nz products

@@ -44,13 +44,3 @@ export const commonStyles = StyleSheet.create({
     borderTopColor: colors.background,
   },
 });
-
-export const navbarStyles = StyleSheet.create({
-  navbar: {
-    flexDirection: 'row',
-    height: 100,
-    backgroundColor: colors.accent,
-    justifyContent: 'space-between',
-    borderTopColor: colors.background,
-  },
-});

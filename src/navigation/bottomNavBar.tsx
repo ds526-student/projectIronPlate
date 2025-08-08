@@ -5,6 +5,7 @@ import { colors, commonStyles } from '../styles';
 import { Ionicons, MaterialIcons } from '@expo/vector-icons';
 import FontAwesome5 from '@expo/vector-icons/FontAwesome5';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function BottomNavBar() {
   return (
@@ -25,6 +26,12 @@ export default function BottomNavBar() {
         <TouchableOpacity style={styles.navItem}>
           <FontAwesome5 name="dumbbell" size={48} color={colors.secondary} style={styles.navbarText} />
         </TouchableOpacity>
+      </Link>
+      
+      <Link href="/profile" asChild>
+          <TouchableOpacity style={styles.navItem}>
+              <MaterialCommunityIcons name="face-man-profile" size={48} color={colors.secondary} />
+          </TouchableOpacity>
       </Link>
 
     </View>
