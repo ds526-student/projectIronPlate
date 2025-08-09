@@ -16,14 +16,13 @@ export const commonStyles = StyleSheet.create({
     fontSize: 16,
     color: colors.text,
   },
+  centerText:{
+    textAlign: 'center'
+  },
   title: {
     fontSize: 24,
     fontWeight: 'bold',
     color: colors.text,
-  },
-  subtitle: {
-    fontSize: 18,
-    color: colors.textSecondary,
   },
   button: {
     backgroundColor: colors.accent,
