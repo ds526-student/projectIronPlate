@@ -6,7 +6,7 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -23,13 +23,15 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "edgeToEdgeEnabled": true,
-      "navigationBar": {
-        "visible": "translucent"
-      }
+      "package": "com.noimad.projectironplate"
     },
     "web": {
       "favicon": "./assets/favicon.png"
+    },
+    "extra": {
+      "eas": {
+        "projectId": "c0e9d494-9e74-404a-934e-87fd9fc3def2"
+      }
     }
   }
 }

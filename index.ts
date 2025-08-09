@@ -1,3 +1,7 @@
+import { enableScreens } from 'react-native-screens';
+
+enableScreens(true);
+
 import 'expo-router/entry';
 
 // registerRootComponent calls AppRegistry.registerComponent('main', () => App);

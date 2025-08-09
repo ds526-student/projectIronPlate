@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from 'react-native';
 import { colors, commonStyles } from '../../../styles';
 
-export default function functionalSection() {
+export default function FunctionalSection() {
     return (
         <View style={[commonStyles.container]}>
             <View style={{flex: 2, flexDirection: 'row'}}>
