@@ -35,7 +35,7 @@ settings
 
 potentially
 choose which widgets are displayed on the main screen
-
+list of preset UI options -> allow users to change the colours of individual buttons to match them
 
 
 
@@ -46,3 +46,5 @@ choose which widgets are displayed on the main screen
 recommendations from others
 macros locked behind pay wall
 not enough nz products
+essential features behind a paywall
+UI is slow and laggy - aesthetics
