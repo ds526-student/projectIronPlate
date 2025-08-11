@@ -6,7 +6,7 @@ import { Link } from 'expo-router';
 
 export default function FoodScreen() {
     return(
-        <View style={{flex: 1, justifyContent: 'center', padding: 4}}>
+        <View style={{flex: 1, justifyContent: 'center'}}>
             <View style={[commonStyles.container, {flex: 3, backgroundColor: colors.primary}]}>
                 <Text style={[commonStyles.title, commonStyles.centerText]}>Stats Section</Text>
             </View>

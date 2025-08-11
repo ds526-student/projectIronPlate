@@ -23,8 +23,7 @@
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#ffffff"
       },
-      "package": "com.noimad.projectironplate",
-      "edgeToEdgeEnabled": true
+      "package": "com.noimad.projectironplate"
     },
     "web": {
       "favicon": "./assets/favicon.png"
