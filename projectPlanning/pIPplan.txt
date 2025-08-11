@@ -48,3 +48,33 @@ macros locked behind pay wall
 not enough nz products
 essential features behind a paywall
 UI is slow and laggy - aesthetics
+
+
+
+
+
+
+
+
+
+
+
+
+
+file strucutre idea for food section
+
+src/
+  app/
+    food/
+      index.tsx           // Main food screen
+      add-food.tsx        // Sub-pages as separate files
+      create-recipe.tsx
+      barcode-scanner.tsx
+      
+  components/
+    food/                 // Food-specific reusable components
+      CalorieCounter.tsx
+      MacroDisplay.tsx
+      FoodButtons.tsx
+      TodaysFoodList.tsx
+      QuickAddButtons.tsx
