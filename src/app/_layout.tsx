@@ -34,7 +34,7 @@ export default function RootLayout() {
                 <Tabs.Screen
                     name="workouts"    
                     options={{
-                        title: "Food",
+                        title: "Workouts",
                         headerShown: false,
                         tabBarIcon: ({ color, size }) => (
                             <FontAwesome6 name="dumbbell" size={size} color={color} />
