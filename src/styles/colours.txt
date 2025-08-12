@@ -1,0 +1,55 @@
+Brand
+
+primary: #25292E 
+secondary (CTA/brand): #9DF545 
+accent (sparingly for highlights): #22D3EE
+Surfaces and neutrals (dark theme)
+
+background: #181A1F (for depth vs primary; keep yours if you prefer)
+surface: #1C1C1E
+surfaceAlt: #2C2C2E
+card: #1F2126
+inputBg: #2C2C2E
+border: #3A3A3C 
+divider: #2C2C2E
+Content
+
+text: #FFFFFF 
+textSecondary: #8E8E93 
+placeholder: #8E8E93
+disabled: #636366
+State shades and overlays
+
+primaryHover: #2D3238
+primaryPressed: #1E2227
+secondaryHover: #8CE53D
+secondaryPressed: #7BD637
+accentHover: #1FC2DB
+accentPressed: #1AB2CA
+focusRing: #9DF54580
+overlay: rgba(0,0,0,0.5)
+overlayStrong: rgba(0,0,0,0.7)
+Feedback
+
+success: #22C55E
+warning: #F59E0B
+error: #EF4444
+info: #38BDF8
+On-color text (for colored buttons/badges)
+
+onSecondary: #0B1600
+onAccent: #041015
+onSuccess: #071A0F
+onWarning: #1A1200
+onError: #140404
+Data viz and macros
+
+macroProtein: #60A5FA (blue)
+macroCarbs: #FBBF24 (amber)
+macroFat: #F97316 (orange)
+macroFiber: #10B981 (emerald)
+series1..5: [#9DF545, #22D3EE, #60A5FA, #F97316, #F59E0B]
+Optional gradients
+
+brandGradient: ['#9DF545', '#6AD62E']
+accentGradient: ['#22D3EE', '#3B82F6']

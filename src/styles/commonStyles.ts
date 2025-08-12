@@ -19,7 +19,8 @@ export const commonStyles = StyleSheet.create({
   centerText:{
     textAlign: 'center', 
     fontSize: 30, 
-    textDecorationStyle: 'solid'
+    textDecorationStyle: 'solid',
+    color: colors.text
   },
   title: {
     fontSize: 24,

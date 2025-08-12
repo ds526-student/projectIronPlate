@@ -1,16 +1,31 @@
 import { Tabs } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import React from "react";
+import { useSafeAreaInsets } from "react-native-safe-area-context";
+import { colors } from "../styles/colors";
+
+// icons
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 export default function RootLayout() {
+  const insets = useSafeAreaInsets();
     return(
         <React.Fragment>
-            <StatusBar />
-            <Tabs>
+            <StatusBar 
+                backgroundColor={colors.primary}
+                hidden={true}
+            />
+            
+            <Tabs
+                screenOptions={{
+                    tabBarActiveBackgroundColor: colors.primary,
+                    tabBarInactiveBackgroundColor: colors.primary,
+                    tabBarActiveTintColor: colors.accent
+                }}
+            >
                 <Tabs.Screen
                     name="(home)"
                     options={{
@@ -18,7 +33,7 @@ export default function RootLayout() {
                         headerShown: false,
                         tabBarIcon: ({ color, size }) => (
                             <Ionicons name="home-outline" size={size} color={color} />
-                        )
+                        ),
                     }}    
                 />
                 <Tabs.Screen
