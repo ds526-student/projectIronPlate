@@ -11,7 +11,7 @@ start workout button - takes you to menu to select which workout you wanna do
 
 food
 tracker - calories | macros | micros
-database - base(usda + nzda)
+database - openfoodfacts
 barcode scanner to add food
 recipe maker - add a group of foods to one meal
 custom food adder

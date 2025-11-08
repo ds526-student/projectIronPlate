@@ -11,11 +11,9 @@ import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import AntDesign from '@expo/vector-icons/AntDesign';
 
 export default function RootLayout() {
-  const insets = useSafeAreaInsets();
     return(
         <React.Fragment>
-            <StatusBar 
-                backgroundColor={colors.primary}
+            <StatusBar
                 hidden={true}
             />
             

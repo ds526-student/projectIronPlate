@@ -6,7 +6,6 @@
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": false,
     "updates": {
       "fallbackToCacheTimeout": 0
     },
@@ -20,11 +19,10 @@
     },
     "android": {
       "statusBar": {
-        "backgroundColor": "#fffff",
         "barStyle": "dark-content",
         "translucent": false
       },
-      "androidNavigationBar": {
+      "navigationBar": {
         "backgroundColor": "#25292e"
       },
       "adaptiveIcon": {
