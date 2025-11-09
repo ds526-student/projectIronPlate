@@ -8,13 +8,13 @@
 
     <!-- food -->
     <item
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_food"
         android:icon="@drawable/ic_food_black_24dp"
         android:title="@string/title_food" />
 
     <!-- workouts -->
     <item
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_workouts"
         android:icon="@drawable/ic_workouts_black_24dp"
         android:title="@string/title_workouts" />
 

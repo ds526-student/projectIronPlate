@@ -12,14 +12,20 @@
         tools:layout="@layout/fragment_home" />
 
     <fragment
-        android:id="@+id/navigation_dashboard"
+        android:id="@+id/navigation_food"
         android:name="com.example.projectironplate.ui.food.FoodFragment"
         android:label="@string/title_food"
         tools:layout="@layout/fragment_food" />
 
     <fragment
-        android:id="@+id/navigation_notifications"
+        android:id="@+id/navigation_workouts"
         android:name="com.example.projectironplate.ui.workouts.WorkoutsFragment"
         android:label="@string/title_workouts"
         tools:layout="@layout/fragment_workouts" />
+
+    <fragment
+        android:id="@+id/navigation_profile"
+        android:name="com.example.projectironplate.ui.profile.ProfileFragment"
+        android:label="@string/title_profile"
+        tools:layout="@layout/fragment_profile" />
 </navigation>
