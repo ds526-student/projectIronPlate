@@ -19,6 +19,7 @@ import java.io.IOException;
 public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding binding;
+    private static final String TAG = "MainActivity";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,10 +44,6 @@ public class MainActivity extends AppCompatActivity {
         try {
             dbHelper.prepDB();
             Log.d("DB_INIT", "Database ready to use!");
-
-            // outputs details of a product to logcat
-            dbHelper.logProductDetails(15000);
-            
         } catch (IOException e) {
             e.printStackTrace();
             Log.e("DB_INIT", "Error preparing database: " + e.getMessage());

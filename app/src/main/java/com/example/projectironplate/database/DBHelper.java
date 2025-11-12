@@ -20,8 +20,6 @@ public class DBHelper extends SQLiteOpenHelper {
     private final Context context; // application context
     private final String dbPath; // path to db
 
-    private static final int MIN_DB_ITEMS = 20000; // minimum items for the database to be considered valid
-
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
@@ -39,13 +37,13 @@ public class DBHelper extends SQLiteOpenHelper {
      * @throws IOException if the db is not found
      */
     public void prepDB() throws IOException {
-        File dbFile = new File(dbPath);
+        SQLiteDatabase db = getWritableDatabase();
 
-        int count = getRecordCount();
+        String product = logProductDetails(20000);
 
         // recreate db if there are less than MIN_DB_ITEMS
-        if (count > 0 && count < MIN_DB_ITEMS) {
-            dbFile.delete();
+        if (product == null) {
+            db.execSQL(Database.SQL_DROP_PRODUCT_TABLE);
             copyDB();
         }
     }
@@ -118,7 +116,7 @@ public class DBHelper extends SQLiteOpenHelper {
      * checks the record count
      * @return the record count
      */
-    private int getRecordCount() {
+    public int getRecordCount() {
         int count = 0;
         SQLiteDatabase db = null;
         Cursor cursor = null;
@@ -141,29 +139,15 @@ public class DBHelper extends SQLiteOpenHelper {
      * Query and log details for a specific product by ROWID
      * @param productId The ROWID of the product to query
      */
-    public void logProductDetails(int productId) {
+    public String logProductDetails(int productId) {
         SQLiteDatabase db = null;
         Cursor cursor = null;
         try {
             db = getReadableDatabase();
             cursor = db.rawQuery("SELECT rowid, * FROM products WHERE rowid = ?", new String[]{String.valueOf(productId)});
-            
+
             if (cursor.moveToFirst()) {
-                Log.d(TAG, "=== Product Details for ID " + productId + " ===");
-                Log.d(TAG, "ROWID: " + cursor.getInt(0)); // rowid is the first column in our SELECT
-                Log.d(TAG, "Code: " + cursor.getString(cursor.getColumnIndexOrThrow("code")));
-                Log.d(TAG, "Product Name: " + cursor.getString(cursor.getColumnIndexOrThrow("product_name")));
-                Log.d(TAG, "Serving Size: " + cursor.getString(cursor.getColumnIndexOrThrow("serving_size")));
-                Log.d(TAG, "Fat (100g): " + cursor.getDouble(cursor.getColumnIndexOrThrow("fat_100g")));
-                Log.d(TAG, "Carbohydrates (100g): " + cursor.getDouble(cursor.getColumnIndexOrThrow("carbohydrates_100g")));
-                Log.d(TAG, "Sugars (100g): " + cursor.getDouble(cursor.getColumnIndexOrThrow("sugars_100g")));
-                Log.d(TAG, "Fiber (100g): " + cursor.getDouble(cursor.getColumnIndexOrThrow("fiber_100g")));
-                Log.d(TAG, "Proteins (100g): " + cursor.getDouble(cursor.getColumnIndexOrThrow("proteins_100g")));
-                Log.d(TAG, "Salt (100g): " + cursor.getDouble(cursor.getColumnIndexOrThrow("salt_100g")));
-                Log.d(TAG, "Sodium (100g): " + cursor.getDouble(cursor.getColumnIndexOrThrow("sodium_100g")));
-                Log.d(TAG, "Calcium (100g): " + cursor.getDouble(cursor.getColumnIndexOrThrow("calcium_100g")));
-                Log.d(TAG, "Iron (100g): " + cursor.getDouble(cursor.getColumnIndexOrThrow("iron_100g")));
-                Log.d(TAG, "=== End Product Details ===");
+                return cursor.getString(cursor.getColumnIndexOrThrow("product_name"));
             } else {
                 Log.d(TAG, "No product found with ID: " + productId);
             }
@@ -173,5 +157,7 @@ public class DBHelper extends SQLiteOpenHelper {
             if (cursor != null) cursor.close();
             if (db != null) db.close();
         }
+
+        return null;
     }
 }
