@@ -28,6 +28,7 @@ public class DashboardFragment extends Fragment {
         View root = binding.getRoot();
 
         setUpCalorieCounter(root, 2352, 2800);
+        setUpMiniCards(root);
 
         return root;
     }
@@ -55,6 +56,15 @@ public class DashboardFragment extends Fragment {
         int percent = Math.round(Math.max(0f, Math.min(100f, percentF)));
 
         return percent;
+    }
+
+    private void setUpMiniCards(View root) {
+        LinearLayout container = root.findViewById(R.id.dashboard_container);
+
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View miniCards = inflater.inflate(R.layout.card_dash_small_many, container, false);
+
+        container.addView(miniCards);
     }
 
     @Override
