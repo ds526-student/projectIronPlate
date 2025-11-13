@@ -13,7 +13,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.example.projectironplate.R;
 import com.example.projectironplate.databinding.FragmentDashboardBinding;
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.components.XAxis;
+import com.github.mikephil.charting.data.Entry;
+import com.github.mikephil.charting.data.LineData;
+import com.github.mikephil.charting.data.LineDataSet;
+import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DashboardFragment extends Fragment {
 
@@ -29,6 +38,7 @@ public class DashboardFragment extends Fragment {
 
         setUpCalorieCounter(root, 2352, 2800);
         setUpMiniCards(root);
+        setUpLineChart(root, "Bodyweight", new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}, new float[]{0f, 0f, 0f, 0f, 0f, 0f, 0f});
 
         return root;
     }
@@ -65,6 +75,62 @@ public class DashboardFragment extends Fragment {
         View miniCards = inflater.inflate(R.layout.card_dash_small_many, container, false);
 
         container.addView(miniCards);
+    }
+
+
+    private void setUpLineChart(View root, String chartTitle, String[] labels, float[] values) {
+        LinearLayout container = root.findViewById(R.id.dashboard_container);
+
+        // inflate line chart card layout
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View lineGraphCard = inflater.inflate(R.layout.card_dash_graph_line, null);
+
+        // set title
+        TextView tvChartTitle = lineGraphCard.findViewById(R.id.tv_chart_title);
+        tvChartTitle.setText(chartTitle);
+
+        LineChart lineChart = lineGraphCard.findViewById(R.id.line_chart);
+
+        // create entries
+        List<Entry> entries = new ArrayList<>();
+        for (int i = 0; i < values.length; i++) {
+            entries.add(new Entry(i, values[i]));
+        }
+
+        // make dataset
+        LineDataSet dataSet = new LineDataSet(entries, chartTitle);
+        dataSet.setColor(getResources().getColor(R.color.primary));
+        dataSet.setCircleColor(getResources().getColor(R.color.primary));
+        dataSet.setLineWidth(3f);
+        dataSet.setCircleRadius(5f);
+        dataSet.setValueTextColor(getResources().getColor(R.color.white));
+        dataSet.setValueTextSize(12f);
+
+        // adds data
+        LineData lineData = new LineData(dataSet);
+
+        // config
+        lineChart.setData(lineData);
+        lineChart.getDescription().setEnabled(false);
+        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
+        lineChart.getAxisRight().setEnabled(false);
+
+        if (labels != null) {
+            lineChart.getXAxis().setEnabled(true);
+            lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
+            lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
+            lineChart.getXAxis().setTextColor(getResources().getColor(R.color.white));
+            lineChart.getXAxis().setGranularity(1f);
+            lineChart.getXAxis().setDrawGridLines(false);
+        } else {
+            lineChart.getXAxis().setEnabled(false);
+        }
+
+        lineChart.getLegend().setEnabled(false);
+        lineChart.invalidate();
+
+        // add to container
+        container.addView(lineGraphCard);
     }
 
     @Override
