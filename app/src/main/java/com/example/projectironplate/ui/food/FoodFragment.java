@@ -28,7 +28,8 @@ public class FoodFragment extends Fragment {
         binding = FragmentFoodBinding.inflate(inflater, container, false);
         View root = binding.getRoot();
 
-        setUpCalorieCounter(root, 100, 200);
+        setUpCalorieCounter(root, 2352, 2800);
+        setUpMacroCounter(root, 135, 220, 25, 100, 184, 265);
 
         return root;
     }
@@ -49,6 +50,48 @@ public class FoodFragment extends Fragment {
         progress.setProgress(percent);
 
         container.addView(calorieCard);
+    }
+
+    private void setUpMacroCounter(View root, int remainingProtein, int goalProtein, int remainingFat, int goalFat, int remainingCarbs, int goalCarbs) {
+        LinearLayout container = root.findViewById(R.id.food_container);
+
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View macroCard = inflater.inflate(R.layout.card_food_macros, container, false);
+
+        int percent = macroCalculator(remainingProtein, goalProtein);
+
+        TextView remainingProteinText = macroCard.findViewById(R.id.tv_remaining_protein);
+        remainingProteinText.setText(String.valueOf(remainingProtein));
+
+        CircularProgressIndicator proteinProgress = macroCard.findViewById(R.id.protein_progress);
+        proteinProgress.setProgress(percent);
+
+
+        percent = macroCalculator(remainingFat, goalFat);
+
+        TextView remainingFatText = macroCard.findViewById(R.id.tv_remaining_fat);
+        remainingFatText.setText(String.valueOf(remainingFat));
+
+        CircularProgressIndicator fatProgress = macroCard.findViewById(R.id.fat_progress);
+        fatProgress.setProgress(percent);
+
+
+        percent = macroCalculator(remainingCarbs, goalCarbs);
+
+        TextView remainingCarbText = macroCard.findViewById(R.id.tv_remaining_carbs);
+        remainingCarbText.setText(String.valueOf(remainingFat));
+
+        CircularProgressIndicator carbProgress = macroCard.findViewById(R.id.carbs_progress);
+        carbProgress.setProgress(percent);
+
+        container.addView(macroCard);
+    }
+
+    private int macroCalculator(int remaining, int goal) {
+        float percentF = (goal > 0) ? (remaining * 100f) / goal : 0f;
+        int percent = Math.round(Math.max(0f, Math.min(100f, percentF)));
+
+        return percent;
     }
 
     @Override
