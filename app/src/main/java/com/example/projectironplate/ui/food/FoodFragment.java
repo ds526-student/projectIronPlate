@@ -30,6 +30,7 @@ public class FoodFragment extends Fragment {
 
         setUpCalorieCounter(root, 2352, 2800);
         setUpMacroCounter(root, 135, 220, 25, 100, 184, 265);
+        addMeal(root);
 
         return root;
     }
@@ -40,8 +41,7 @@ public class FoodFragment extends Fragment {
         LayoutInflater inflater = LayoutInflater.from(getContext());
         View calorieCard = inflater.inflate(R.layout.card_food_calories, container, false);
 
-        float percentF = (goalCals > 0) ? (remainingCals * 100f) / goalCals : 0f;
-        int percent = Math.round(Math.max(0f, Math.min(100f, percentF)));
+        int percent = macroCalculator(remainingCals, goalCals);
 
         TextView remainingCalsText = calorieCard.findViewById(R.id.tv_remaining_cals);
         remainingCalsText.setText(String.valueOf(remainingCals));
@@ -79,7 +79,7 @@ public class FoodFragment extends Fragment {
         percent = macroCalculator(remainingCarbs, goalCarbs);
 
         TextView remainingCarbText = macroCard.findViewById(R.id.tv_remaining_carbs);
-        remainingCarbText.setText(String.valueOf(remainingFat));
+        remainingCarbText.setText(String.valueOf(remainingCarbs));
 
         CircularProgressIndicator carbProgress = macroCard.findViewById(R.id.carbs_progress);
         carbProgress.setProgress(percent);
@@ -88,10 +88,20 @@ public class FoodFragment extends Fragment {
     }
 
     private int macroCalculator(int remaining, int goal) {
-        float percentF = (goal > 0) ? (remaining * 100f) / goal : 0f;
+        int consumed = goal - remaining;
+        float percentF = (goal > 0) ? (consumed * 100f) / goal : 0f;
         int percent = Math.round(Math.max(0f, Math.min(100f, percentF)));
 
         return percent;
+    }
+
+    private void addMeal(View root) {
+        LinearLayout container = root.findViewById(R.id.food_container);
+
+        LayoutInflater inflater = LayoutInflater.from(getContext());
+        View mealCard = inflater.inflate(R.layout.card_food_add_meal, container, false);
+
+        container.addView(mealCard);
     }
 
     @Override
