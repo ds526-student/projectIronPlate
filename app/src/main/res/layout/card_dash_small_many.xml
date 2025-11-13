@@ -17,8 +17,8 @@
         android:focusable="true"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/card_workouts"
-        app:layout_constraintBottom_toTopOf="@+id/card_nutrition"
+        app:layout_constraintEnd_toStartOf="@+id/card_steps"
+        app:layout_constraintBottom_toTopOf="@+id/card_water"
         app:layout_constraintDimensionRatio="1:1"
         android:layout_marginEnd="8dp"
         android:layout_marginBottom="8dp">
@@ -33,7 +33,7 @@
 
     <!-- Top Right Card -->
     <LinearLayout
-        android:id="@+id/card_workouts"
+        android:id="@+id/card_steps"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -44,21 +44,21 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@+id/card_bodyweight"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/card_goals"
+        app:layout_constraintBottom_toTopOf="@+id/card_sleep"
         app:layout_constraintDimensionRatio="1:1"
         android:layout_marginBottom="8dp">
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Workouts"
+            android:text="Steps"
             android:textColor="@color/white"
             android:textSize="@dimen/reg_text"/>
     </LinearLayout>
 
     <!-- Bottom Left Card -->
     <LinearLayout
-        android:id="@+id/card_nutrition"
+        android:id="@+id/card_water"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -68,7 +68,7 @@
         android:focusable="true"
         app:layout_constraintTop_toBottomOf="@+id/card_bodyweight"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/card_goals"
+        app:layout_constraintEnd_toStartOf="@+id/card_sleep"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1"
         android:layout_marginEnd="8dp">
@@ -76,14 +76,14 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Nutrition"
+            android:text="Water"
             android:textColor="@color/white"
             android:textSize="@dimen/reg_text"/>
     </LinearLayout>
 
     <!-- Bottom Right Card -->
     <LinearLayout
-        android:id="@+id/card_goals"
+        android:id="@+id/card_sleep"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:orientation="vertical"
@@ -91,8 +91,8 @@
         android:padding="10dp"
         android:clickable="true"
         android:focusable="true"
-        app:layout_constraintTop_toBottomOf="@+id/card_workouts"
-        app:layout_constraintStart_toEndOf="@+id/card_nutrition"
+        app:layout_constraintTop_toBottomOf="@+id/card_steps"
+        app:layout_constraintStart_toEndOf="@+id/card_water"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintDimensionRatio="1:1">
@@ -100,7 +100,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Goals"
+            android:text="Sleep"
             android:textColor="@color/white"
             android:textSize="@dimen/reg_text"/>
     </LinearLayout>
