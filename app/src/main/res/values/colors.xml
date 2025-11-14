@@ -2,9 +2,6 @@
 <resources>
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
-    <color name="orange">#FFA500</color>
-    <color name="green">#0db665</color>
-    <color name="purple">#606cde</color>
 
     <color name="background">#25292e</color>
     <color name="primary">#25292e</color>
@@ -13,5 +10,17 @@
     <color name="text_primary">#fff</color>
     <color name="text_secondary">#8e8e93</color>
     <color name="border">#3a3a3c</color>
+
+
+    <color name="calories">#FFA500</color>
+    <color name="protein">#F5C542</color>
+    <color name="fats">#0db665</color>
+    <color name="carbs">#606cde</color>
+
+
+    <color name="bodyweight">#FF7F32</color>
+    <color name="steps">#C8FF00</color>
+    <color name="water">#3FA7F2</color>
+    <color name="sleep">#6A4CFF</color>
 
 </resources>
