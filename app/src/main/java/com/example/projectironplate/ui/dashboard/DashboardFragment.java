@@ -72,7 +72,7 @@ public class DashboardFragment extends Fragment {
         LinearLayout container = root.findViewById(R.id.dashboard_container);
 
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View miniCards = inflater.inflate(R.layout.card_dash_small_many, container, false);
+        View miniCards = inflater.inflate(R.layout.card_dash_goals, container, false);
 
         container.addView(miniCards);
     }
