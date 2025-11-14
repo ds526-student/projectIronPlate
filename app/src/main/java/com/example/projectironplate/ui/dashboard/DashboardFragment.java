@@ -4,21 +4,19 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.example.projectironplate.R;
 import com.example.projectironplate.databinding.FragmentDashboardBinding;
-import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.data.LineData;
-import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
+import com.example.projectironplate.utils.LineGraphMaker;
 import com.google.android.material.progressindicator.CircularProgressIndicator;
 
 import java.util.ArrayList;
@@ -27,6 +25,8 @@ import java.util.List;
 public class DashboardFragment extends Fragment {
 
     private FragmentDashboardBinding binding;
+    private ImageView[] dots;
+    private LinearLayout dotsLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater,
                              ViewGroup container, Bundle savedInstanceState) {
@@ -38,7 +38,7 @@ public class DashboardFragment extends Fragment {
 
         setUpCalorieCounter(root, 2352, 2800);
         setUpMiniCards(root);
-        setUpLineChart(root, "Bodyweight", new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"}, new float[]{0f, 0f, 0f, 0f, 0f, 0f, 0f});
+        setUpChartViewPager(root);
 
         return root;
     }
@@ -77,60 +77,84 @@ public class DashboardFragment extends Fragment {
         container.addView(miniCards);
     }
 
-
-    private void setUpLineChart(View root, String chartTitle, String[] labels, float[] values) {
+    private void setUpChartViewPager(View root) {
         LinearLayout container = root.findViewById(R.id.dashboard_container);
 
-        // inflate line chart card layout
         LayoutInflater inflater = LayoutInflater.from(getContext());
-        View lineGraphCard = inflater.inflate(R.layout.card_dash_graph_line, null);
+        View chartContainer = inflater.inflate(R.layout.card_dash_graph_container, container, false);
 
-        // set title
-        TextView tvChartTitle = lineGraphCard.findViewById(R.id.tv_chart_title);
-        tvChartTitle.setText(chartTitle);
+        ViewPager2 viewPager = chartContainer.findViewById(R.id.viewPager_charts);
+        dotsLayout = chartContainer.findViewById(R.id.dots_indicator);
 
-        LineChart lineChart = lineGraphCard.findViewById(R.id.line_chart);
+        // Create chart data
+        List<LineGraphMaker.ChartData> charts = new ArrayList<>();
+        charts.add(new LineGraphMaker.ChartData(
+                "Bodyweight",
+                new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
+                new float[]{75f, 75.5f, 74.8f, 75.2f, 74.9f, 74.7f, 74.5f}
+        ));
+        charts.add(new LineGraphMaker.ChartData(
+                "Steps",
+                new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
+                new float[]{8000f, 10000f, 7500f, 9500f, 11000f, 8500f, 9000f}
+        ));
+        charts.add(new LineGraphMaker.ChartData(
+                "Calories",
+                new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
+                new float[]{2200f, 2400f, 2100f, 2300f, 2500f, 2200f, 2300f}
+        ));
+        charts.add(new LineGraphMaker.ChartData(
+                "Water",
+                new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
+                new float[]{2f, 1.8f, 1.9f, 2.2f, 1.6f, 2.3f, 2f}
+        ));
+        charts.add(new LineGraphMaker.ChartData(
+                "Sleep",
+                new String[]{"Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun"},
+                new float[]{8f, 7.4f, 8.2f, 9.3f, 10f, 6.7f, 7.8f}
+        ));
 
-        // create entries
-        List<Entry> entries = new ArrayList<>();
-        for (int i = 0; i < values.length; i++) {
-            entries.add(new Entry(i, values[i]));
+        // Set up adapter
+        int primaryColor = ContextCompat.getColor(requireContext(), R.color.accent);
+        int whiteColor = ContextCompat.getColor(requireContext(), R.color.white);
+        LineGraphMaker adapter = new LineGraphMaker(charts, primaryColor, whiteColor);
+        viewPager.setAdapter(adapter);
+
+        // Set up dots indicator
+        setupDotsIndicator(charts.size());
+        setCurrentIndicator(0);
+
+        viewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+            @Override
+            public void onPageSelected(int position) {
+                setCurrentIndicator(position);
+            }
+        });
+
+        container.addView(chartContainer);
+    }
+
+    private void setupDotsIndicator(int count) {
+        dots = new ImageView[count];
+        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
+                ViewGroup.LayoutParams.WRAP_CONTENT,
+                ViewGroup.LayoutParams.WRAP_CONTENT
+        );
+        layoutParams.setMargins(8, 0, 8, 0);
+
+        for (int i = 0; i < count; i++) {
+            dots[i] = new ImageView(getContext());
+            dots[i].setImageDrawable(ContextCompat.getDrawable(requireContext(), R.drawable.dot_inactive));
+            dots[i].setLayoutParams(layoutParams);
+            dotsLayout.addView(dots[i]);
         }
+    }
 
-        // make dataset
-        LineDataSet dataSet = new LineDataSet(entries, chartTitle);
-        dataSet.setColor(getResources().getColor(R.color.primary));
-        dataSet.setCircleColor(getResources().getColor(R.color.primary));
-        dataSet.setLineWidth(3f);
-        dataSet.setCircleRadius(5f);
-        dataSet.setValueTextColor(getResources().getColor(R.color.white));
-        dataSet.setValueTextSize(12f);
-
-        // adds data
-        LineData lineData = new LineData(dataSet);
-
-        // config
-        lineChart.setData(lineData);
-        lineChart.getDescription().setEnabled(false);
-        lineChart.getAxisLeft().setTextColor(getResources().getColor(R.color.white));
-        lineChart.getAxisRight().setEnabled(false);
-
-        if (labels != null) {
-            lineChart.getXAxis().setEnabled(true);
-            lineChart.getXAxis().setPosition(XAxis.XAxisPosition.BOTTOM);
-            lineChart.getXAxis().setValueFormatter(new IndexAxisValueFormatter(labels));
-            lineChart.getXAxis().setTextColor(getResources().getColor(R.color.white));
-            lineChart.getXAxis().setGranularity(1f);
-            lineChart.getXAxis().setDrawGridLines(false);
-        } else {
-            lineChart.getXAxis().setEnabled(false);
+    private void setCurrentIndicator(int position) {
+        for (int i = 0; i < dots.length; i++) {
+            int drawableId = (i == position) ? R.drawable.dot_active : R.drawable.dot_inactive;
+            dots[i].setImageDrawable(ContextCompat.getDrawable(requireContext(), drawableId));
         }
-
-        lineChart.getLegend().setEnabled(false);
-        lineChart.invalidate();
-
-        // add to container
-        container.addView(lineGraphCard);
     }
 
     @Override
