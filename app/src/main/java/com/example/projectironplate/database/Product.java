@@ -1,5 +1,8 @@
 package com.example.projectironplate.database;
 
+/**
+ * a table that stores all of the products within the database
+ */
 public class Product {
     private int rowId;
     private String code;
@@ -15,7 +18,40 @@ public class Product {
     private double calcium100g;
     private double iron100g;
     
-    public Product() {}
+    /**
+     * constructor for the Product class
+     * @param rowId id of product
+     * @param code barcode of product
+     * @param productName name of product
+     * @param servingSize serving size of product
+     * @param fat100g fat content per 100g
+     * @param carbohydrates100g carbohydrate content per 100g
+     * @param sugars100g sugar content per 100g
+     * @param fiber100g fiber content per 100g
+     * @param proteins100g protein content per 100g
+     * @param salt100g salt content per 100g
+     * @param sodium100g sodium content per 100g
+     * @param calcium100g calcium content per 100g
+     * @param iron100g iron content per 100g
+     */
+    public Product(int rowId, String code, String productName, String servingSize, 
+                   double fat100g, double carbohydrates100g, double sugars100g, 
+                   double fiber100g, double proteins100g, double salt100g, 
+                   double sodium100g, double calcium100g, double iron100g) {
+        this.rowId = rowId;
+        this.code = code;
+        this.productName = productName;
+        this.servingSize = servingSize;
+        this.fat100g = fat100g;
+        this.carbohydrates100g = carbohydrates100g;
+        this.sugars100g = sugars100g;
+        this.fiber100g = fiber100g;
+        this.proteins100g = proteins100g;
+        this.salt100g = salt100g;
+        this.sodium100g = sodium100g;
+        this.calcium100g = calcium100g;
+        this.iron100g = iron100g;
+    }
 
     /**
      * collection of getters to access data

@@ -78,32 +78,18 @@ public class DBHelper extends SQLiteOpenHelper {
             // if db not found
             Log.w(TAG, "Asset DB not found: " + DATABASE_NAME + "; creating empty database instead.");
             if (input != null) input.close();
-            createEmptyDB();
+            createEmptyProductDB();
         }
     }
 
     /**
      * creates an empty db with a products table
      */
-    private void createEmptyDB() {
+    private void createEmptyProductDB() {
         SQLiteDatabase db = null;
         try {
             db = getWritableDatabase();
-            db.execSQL("CREATE TABLE IF NOT EXISTS products (" +
-                    "ROWID INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                    "code TEXT, " +
-                    "product_name TEXT, " +
-                    "serving_size TEXT, " +
-                    "fat_100g REAL, " +
-                    "carbohydrates_100g REAL, " +
-                    "sugars_100g REAL, " +
-                    "fiber_100g REAL, " +
-                    "proteins_100g REAL, " +
-                    "salt_100g REAL, " +
-                    "sodium_100g REAL, " +
-                    "calcium_100g REAL, " +
-                    "iron_100g REAL" +
-                    ");");
+            db.execSQL(Database.SQL_CREATE_PRODUCT_TABLE);
             Log.d(TAG, "empty db created");
         } catch (Exception ex) {
             Log.e(TAG, "error creating empty DB: " + ex.getMessage());
