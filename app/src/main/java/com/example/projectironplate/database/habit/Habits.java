@@ -1,4 +1,4 @@
-package com.example.projectironplate.database;
+package com.example.projectironplate.database.habit;
 
 import java.sql.Date;
 

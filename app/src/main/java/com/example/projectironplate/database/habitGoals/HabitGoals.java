@@ -1,4 +1,4 @@
-package com.example.projectironplate.database;
+package com.example.projectironplate.database.habitGoals;
 
 
 /**
@@ -34,4 +34,13 @@ public class HabitGoals {
     public void setId(int Id) { this.id = Id; }
     public void setHabit(String habit) { this.habit = habit; }
     public void setGoal(double goal) { this.goal = goal; }
+
+    @Override
+    public String toString() {
+        return "HabitGoals{" +
+                "rowId=" + id +
+                "habit=" + habit +
+                "goal=" + goal +
+                '}';
+    }
 }
