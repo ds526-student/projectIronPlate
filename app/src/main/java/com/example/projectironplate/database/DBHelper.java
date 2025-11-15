@@ -1,10 +1,11 @@
 package com.example.projectironplate.database;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+
+import com.example.projectironplate.database.product.ProductDAO;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -14,11 +15,11 @@ import java.io.OutputStream;
 
 public class DBHelper extends SQLiteOpenHelper {
 
-    private static final String TAG = "DBHelper"; // tag for logs
-    private static final String DATABASE_NAME = "products.db"; // db file name
-    private static final int DATABASE_VERSION = 1; // current db version
-    private final Context context; // application context
-    private final String dbPath; // path to db
+    private static final String TAG = "DBHelper";
+    private static final String DATABASE_NAME = "products.db";
+    private static final int DATABASE_VERSION = 1;
+    private final Context context;
+    private final String dbPath;
 
     public DBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
@@ -27,123 +28,54 @@ public class DBHelper extends SQLiteOpenHelper {
     }
 
     @Override
-    public void onCreate(SQLiteDatabase db) {}
+    public void onCreate(SQLiteDatabase db) {
+        // Create all tables
+        db.execSQL(ProductDAO.SQL_CREATE_TABLE);
+        // Future: db.execSQL(HabitsDAO.SQL_CREATE_TABLE);
+    }
 
     @Override
-    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {}
-
-    /**
-     * checks for the existance of the db
-     * @throws IOException if the db is not found
-     */
-    public void prepDB() throws IOException {
-        SQLiteDatabase db = getWritableDatabase();
-
-        String product = logProductDetails(20000);
-
-        // recreate db if there are less than MIN_DB_ITEMS
-        if (product == null) {
-            db.execSQL(Database.SQL_DROP_PRODUCT_TABLE);
-            copyDB();
-        }
+    public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
+        db.execSQL(ProductDAO.SQL_DROP_TABLE);
+        onCreate(db);
     }
 
     /**
-     * copies the database from assets to the app's internal storage
-     * @throws IOException if the database cannot be copied
+     * Initialize database - copy from assets if needed
      */
-    private void copyDB() throws IOException {
+    public void prepDB() throws IOException {
+        ProductDAO productDAO = new ProductDAO(this);
+
+        // Check if database needs to be copied
+        if (productDAO.getCount() < 1000) { // Adjust threshold as needed
+            copyDatabaseFromAssets();
+        }
+    }
+
+    private void copyDatabaseFromAssets() throws IOException {
         File dbDir = new File(context.getDatabasePath(DATABASE_NAME).getParent());
         if (!dbDir.exists()) dbDir.mkdirs();
 
         InputStream input = null;
         try {
-            // copies db from assets
             input = context.getAssets().open(DATABASE_NAME);
-
-            // constructs the output stream
             OutputStream output = new FileOutputStream(dbPath);
             byte[] buffer = new byte[1024];
             int length;
             while ((length = input.read(buffer)) > 0) {
                 output.write(buffer, 0, length);
             }
-
             output.flush();
             output.close();
             input.close();
-
             Log.d(TAG, "Database copied successfully from assets.");
         } catch (IOException e) {
-            // if db not found
-            Log.w(TAG, "Asset DB not found: " + DATABASE_NAME + "; creating empty database instead.");
+            Log.w(TAG, "Asset DB not found: " + DATABASE_NAME);
             if (input != null) input.close();
-            createEmptyProductDB();
+            // onCreate will handle creating empty tables
+            SQLiteDatabase db = getWritableDatabase();
+            onCreate(db);
+            db.close();
         }
-    }
-
-    /**
-     * creates an empty db with a products table
-     */
-    private void createEmptyProductDB() {
-        SQLiteDatabase db = null;
-        try {
-            db = getWritableDatabase();
-            db.execSQL(Database.SQL_CREATE_PRODUCT_TABLE);
-            Log.d(TAG, "empty db created");
-        } catch (Exception ex) {
-            Log.e(TAG, "error creating empty DB: " + ex.getMessage());
-        } finally {
-            if (db != null) db.close();
-        }
-    }
-
-    /**
-     * checks the record count
-     * @return the record count
-     */
-    public int getRecordCount() {
-        int count = 0;
-        SQLiteDatabase db = null;
-        Cursor cursor = null;
-        try {
-            db = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READONLY);
-            cursor = db.rawQuery("SELECT COUNT(*) FROM products", null);
-            if (cursor.moveToFirst()) {
-                count = cursor.getInt(0);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Error reading database: " + e.getMessage());
-        } finally {
-            if (cursor != null) cursor.close();
-            if (db != null) db.close();
-        }
-        return count;
-    }
-
-    /**
-     * Query and log details for a specific product by ROWID
-     * @param productId The ROWID of the product to query
-     */
-    public String logProductDetails(int productId) {
-        SQLiteDatabase db = null;
-        Cursor cursor = null;
-        try {
-            db = getReadableDatabase();
-            cursor = db.rawQuery("SELECT rowid, * FROM products WHERE rowid = ?", new String[]{String.valueOf(productId)});
-
-            if (cursor.moveToFirst()) {
-                return cursor.getString(cursor.getColumnIndexOrThrow("product_name"));
-            } else {
-                Log.d(TAG, "No product found with ID: " + productId);
-            }
-        } catch (Exception e) {
-            Log.e(TAG, "Error querying product " + productId + ": " + e.getMessage());
-        } finally {
-            if (cursor != null) cursor.close();
-            if (db != null) db.close();
-        }
-
-        return null;
     }
 }
