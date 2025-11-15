@@ -29,28 +29,32 @@ public class HabitGoalsDAO {
 
 
     public static void prePopulateTable(SQLiteDatabase db) {
-        insertHabitGoal(db, "Bodyweight", 75.0);
-        insertHabitGoal(db, "Steps", 10000.0);
-        insertHabitGoal(db, "Water", 3.0);
-        insertHabitGoal(db, "Sleep", 8.0);
-        insertHabitGoal(db, "Calories", 2500.0);
-        insertHabitGoal(db, "Protein", 150.0);
-        insertHabitGoal(db, "Carbs", 250.0);
-        insertHabitGoal(db, "Fat", 80.0);
+        insertHabitGoal(db, HabitType.BODYWEIGHT, 75.0);
+        insertHabitGoal(db, HabitType.STEPS, 10000.0);
+        insertHabitGoal(db, HabitType.WATER, 3.0);
+        insertHabitGoal(db, HabitType.SLEEP, 8.0);
+        insertHabitGoal(db, HabitType.CALORIES, 2500.0);
+        insertHabitGoal(db, HabitType.PROTEIN, 150.0);
+        insertHabitGoal(db, HabitType.CARBS, 250.0);
+        insertHabitGoal(db, HabitType.FAT, 80.0);
     }
 
 
     /**
      * Helper method to insert a single habit goal
      */
-    private static void insertHabitGoal(SQLiteDatabase db, String habit, double goal) {
+    private static void insertHabitGoal(SQLiteDatabase db, HabitType habitType, double goal) {
         ContentValues values = new ContentValues();
-        values.put("habit", habit);
+        values.put("habit", habitType.getDbValue());
         values.put("goal", goal);
         db.insert(TABLE_NAME, null, values);
     }
 
-    public HabitGoals getByHabit(String Habit) {
+    public HabitGoals getByHabit(HabitType habitType) {
+        return getByHabitString(habitType.getDbValue());
+    }
+
+    public HabitGoals getByHabitString(String Habit) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = null;
         HabitGoals habitGoals = null;

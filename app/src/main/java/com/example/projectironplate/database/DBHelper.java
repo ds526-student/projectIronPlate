@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
 
+import com.example.projectironplate.database.habitGoals.HabitGoalsDAO;
 import com.example.projectironplate.database.product.ProductDAO;
 
 import java.io.File;
@@ -29,9 +30,12 @@ public class DBHelper extends SQLiteOpenHelper {
 
     @Override
     public void onCreate(SQLiteDatabase db) {
-        // Create all tables
+        // create products table
         db.execSQL(ProductDAO.SQL_CREATE_TABLE);
-        // Future: db.execSQL(HabitsDAO.SQL_CREATE_TABLE);
+
+        // create habit goals table
+        db.execSQL(HabitGoalsDAO.SQL_CREATE_TABLE);
+        HabitGoalsDAO.prePopulateTable(db);
     }
 
     @Override
