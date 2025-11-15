@@ -1,4 +1,4 @@
-package com.example.projectironplate.database;
+package com.example.projectironplate.database.product;
 
 /**
  * a table that stores all of the products within the database

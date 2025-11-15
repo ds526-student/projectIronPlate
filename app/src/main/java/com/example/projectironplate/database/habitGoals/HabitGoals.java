@@ -1,4 +1,4 @@
-package com.example.projectironplate.database;
+package com.example.projectironplate.database.habitGoals;
 
 
 /**
@@ -6,7 +6,7 @@ package com.example.projectironplate.database;
  */
 public class HabitGoals {
     private int id;
-    private String habit;
+    private HabitType habitType;
     private double goal;
 
     /**
@@ -17,7 +17,7 @@ public class HabitGoals {
      */
     public HabitGoals (int id, String habit, double goal) {
         this.id = id;
-        this.habit = habit;
+        this.habitType = HabitType.fromDbValue(habit);
         this.goal = goal;
     }
 
@@ -25,13 +25,21 @@ public class HabitGoals {
      * collection of getters
      */
     public int getId() { return id; }
-    public String getHabit() { return habit; }
+    public HabitType getHabit() { return habitType; }
     public double getGoal() { return goal; }
 
     /**
      * collection of setters
      */
     public void setId(int Id) { this.id = Id; }
-    public void setHabit(String habit) { this.habit = habit; }
     public void setGoal(double goal) { this.goal = goal; }
+
+    @Override
+    public String toString() {
+        return "HabitGoals{" +
+                "rowId=" + id +
+                "habit=" + habitType +
+                "goal=" + goal +
+                '}';
+    }
 }
