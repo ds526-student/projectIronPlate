@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:textSize="@dimen/title_text"
             android:textColor="@color/text_secondary"
-            android:text="Update today's water(ml)"
+            android:text="Update today's water (ml)"
             android:layout_marginStart="15dp"/>
 
         <com.google.android.material.textfield.TextInputEditText

@@ -33,7 +33,7 @@ public class HabitsDAO {
         this.dbHelper = dbHelper;
     }
 
-    public void saveHabit(HabitType habit, double value, Date date) {
+    public void saveHabit(HabitType habit, double value, String date) {
         SQLiteDatabase db = dbHelper.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put("habit", habit.toString());
@@ -44,7 +44,7 @@ public class HabitsDAO {
         db.close();
     }
 
-    public Habits getLastSevenDays(HabitType habit, Date currentDate) {
+    public Habits getLastSevenDays(HabitType habit) {
         SQLiteDatabase db = dbHelper.getReadableDatabase();
         Cursor cursor = null;
         Habits habits = null;
